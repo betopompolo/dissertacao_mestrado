@@ -1,0 +1,82 @@
+
+\documentclass[font=arial,acronym,symbols]{fei}
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{float}
+
+%%%% -- Configuracoes Iniciais
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\author{Adalberto Nassu Pompolo}
+%\cidade{Cidade}
+%\instituicao{Instituição de Ensino}
+\title{Utilização de uma rede \textit{Multilayer Perceptron} para busca semântica de código-fonte a partir de linguagem natural}
+
+% comando para inserção de subfloats do tipo figure, usado aqui no template
+% remova este comando se for usar o pacote subfig
+% não recomendo o pacote subcaption
+% \newsubfloat{figure}
+
+% \subtitulo{subtítulo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% -- Entradas Listas de Abreviaturas e Simbolos
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% -- Abreviaturas
+\input{abreviaturas}
+
+%% -- Simbolos
+% \newglossaryentry{A}{type=symbols,name={\ensuremath{A}},sort=a,description={exchanger total heat transfer area, $m^2$}}
+% \newglossaryentry{G}{type=symbols,name={\ensuremath{G}},sort=g,description={exchanger flow-stream mass velocity, $kg/(s m^2)$}}
+% \newglossaryentry{f}{type=symbols,name={\ensuremath{j}},sort=j,description={friction factor, dimensionless}}
+% \newglossaryentry{deltap}{type=symbols,name={\ensuremath{\Delta P}},sort=p,description={pressure drop, $Pa$}}
+% \newglossaryentry{nu}{type=symbols,name={\ensuremath{\nu}},sort=b,description={specific volume, $m^3/kg$}}
+% \newglossaryentry{beta}{type=symbols,name={\ensuremath{\beta}},sort=b,description={ratio of free-flow area $A_{ff}$ and frontal area $A_{fr}$ of one side of exchanger, dimensionless}}
+% \newglossaryentry{fr}{type=symbols,name={\ensuremath{fr}},sort=fr,description={frontal}}
+% \newglossaryentry{in}{type=symbols,name={\ensuremath{i}},sort=in,description={inlet}}
+% \newglossaryentry{out}{type=symbols,name={\ensuremath{o}},sort=out,description={outlet}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\addbibresource{artigos.bib}
+
+\makeindex
+
+\makeglossaries
+
+\begin{document}
+
+\maketitle
+
+\begin{folhaderosto}
+Dissertação de Mestrado, apresentada ao Centro Universitário da FEI para obtenção do título de Mestre em Engenharia Elétrica. Orientado pela Prof. Dr. Leila Cristina Carneiro Bergamasco.
+\end{folhaderosto}
+
+\fichacatalografica
+\folhadeaprovacao
+
+\input{dedicatoria}
+\input{agradecimentos}
+\input{epigrafe}
+\input{resumo}
+
+% \listoffigures
+% \listoftables
+% \listofalgorithms
+\printglossaries
+\tableofcontents
+
+\input{intro}
+\input{trabalhos-relacionados}
+\input{conceitos}
+\input{metodologia}
+\input{proposta-experimental}
+\input{resultados}
+\input{discussoes}
+\input{conclusao}
+
+\printbibliography
+
+% \printindex
+
+\end{document}

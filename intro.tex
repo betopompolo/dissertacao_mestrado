@@ -1,0 +1,40 @@
+\chapter{Introdução}
+\label{chp:introduction}
+
+Busca de código-fonte é uma tarefa essencial no trabalho de engenheiros e desenvolvedores de \textit{software} \cite{Rahman2018EvaluatingHD}. \textcite{Sadowski2015HowDS} mostrou que, em média, um engenheiro realiza 5 sessões de busca de código-fonte com 12 buscas por sessão, totalizando assim 60 buscas por código-fonte durante um dia de trabalho. \textcite{Xia2017WhatDD} também mostra que trechos de código-fonte estão entre os itens mais buscados pelos engenheiros de \textit{software}.
+
+Porém, um dos problemas conhecidos da área de recuperação de informação é o \textit{term mismatch} ou \textit{vocabulary mismatch} \cite{Furnas1987TheVP} \cite{Carpineto2012ASO}. Em busca de código-fonte, esse problema se dá quando os termos da busca providos pelo usuário não coincidem com os termos utilizados nos trechos de código-fonte correspondentes \cite{Nie2016QueryEB}. Além disso, a maioria das ferramentas de busca de código-fonte atuais realizam buscas por correspondência textual. Tais buscas utilizam o termo buscado pelo usuário (tal termo também é chamado de \textit{query}) e procuram códigos-fonte que contenham este mesmo termo. Esse método de busca tende a incorrer no problema de \textit{term mismatch}.
+
+Por exemplo: considere que o engenheiro de \textit{software} queira encontrar códigos-fontes relacionados ao processo de autenticação de um usuário em determinado sistema. Normalmente, tal processo é chamado de \textit{login}. Porém, há diversos outros termos que também são utilizados para o mesmo processo de autenticação, como \textit{signin}, \textit{autenticar} e outros. A Figura \ref{fig:intro:login-search} mostra um exemplo de busca de código-fonte por correspondência textual, utilizando a \textit{query} \textit{login}.
+
+\begin{figure}[H]
+  \centering
+  \caption{Exemplo de busca por correspondência textual}
+  \includegraphics[width=0.8\columnwidth, height=0.4\columnwidth]{./imagens/intro/login-search.png}
+  \smallcaption{Fonte: Autor}
+  \label{fig:intro:login-search}
+\end{figure}
+
+Conforme visto no exemplo da Figura \ref{fig:intro:login-search}, a busca feita com a \textit{query} \textit{login} retornou os três primeiros trechos de código-fonte, os quais continham a palavra \textit{login}. Entretanto, os três últimos trechos de código-fonte (em cinza) não foram encontrados pela busca em questão, embora também sejam relacionados ao mesmo processo de autenticação do usuário no sistema.
+
+Para mitigar esse problema de \textit{term mismatch} na busca de código, técnicas de \gls{nlp}, como \textit{query expansion} \cite{Nie2016QueryEB}, modelo booleano \cite{lv2015codehow} e, mais recentemente, modelos \textit{transformers} (como o \textit{CodeBERT} \cite{Feng2020CodeBERTAP}) vem sendo aplicados. Tais modelos \textit{transformers} se tornaram o estado da arte em busca de código-fonte utilizando linguagem natural pelo fato destes serem capazes de adicionar informações semânticas às buscas \cite{Guo2021GraphCodeBERTPC}. Isso significa que tais modelos compreendem, além das informações textuais contidas no trecho de código, informações semânticas sobre o código-fonte, como quais tarefas este realiza.
+
+Para realizar o treinamento de tais modelos \textit{transformers}, normalmente é utilizado uma estrutura chamada par código-fonte/descrição ou par código-fonte/comentário. Tal estrutura contém tanto um trecho de código-fonte, escrito em linguagem de programação, quanto um trecho, escrito em linguagem natural, descrevendo as tarefas realizadas por tal código-fonte \cite{Gu2021CRaDLeDC} \cite{Yao2019CoaCorCA}. Um exemplo de par código-fonte/descrição pode ser encontrado na Figura \ref{fig:intro:code-description-pair}.
+
+\begin{figure}[H]
+  \centering
+  \caption{Exemplo de um par código-fonte/descrição}
+  \includegraphics[width=\textwidth,keepaspectratio=true]{./imagens/intro/code-desc-pair.png}
+  \smallcaption{Fonte: Autor}
+  \label{fig:intro:code-description-pair}
+\end{figure}
+
+Na Figura \ref{fig:intro:code-description-pair}, há um trecho de código-fonte que realiza determinadas tarefas, e outro trecho em cinza, escrito em inglês (linguagem natural), descrevendo as tarefas realizadas pelo código-fonte em questão. Com isso, observa-se que o problema de busca de código-fonte lida com dois domínios de linguagem: o primeiro é o da linguagem natural, o qual contempla tanto a descrição do código-fonte quanto os termos de busca fornecidos pelo usuário. Já o segundo domínio refere-se às linguagens de programação, nas quais são escritos os trechos de códigos-fonte que serão buscados.
+
+Entretanto, trabalhos como \textcite{Gu2018DeepCS} criam representações vetoriais (chamadas de \textit{embeddings}) tanto dos trechos de código-fonte quanto de suas descrições e das \textit{queries} do usuário. Com isso, ao comparar a similaridade entre os vetores gerados, estes sistemas inferem a semelhança entre a \textit{query} e determinados trechos de código-fonte trabalhando apenas em um domínio, a saber, no domínio vetorial dos \textit{embeddings}.
+
+\section{Objetivo}
+Com isso, o objetivo desse trabalho é utilizar uma rede \gls{mlp} para determinar a similaridade entre dois \textit{embeddings}, gerados por redes \textit{transformers}, de dois domínios diferentes: linguagem natural e linguagem de programação.
+
+\section{Organização do trabalho}
+O presente trabalho está organizado da seguinte forma: no capítulo \ref{chp:relatedWorks} é apresentado um retrato do estado da arte das áreas que o presente trabalho abrange, como busca de código e modelos \textit{transformers}. O capítulo \ref{chp:concepts} contém os principais conceitos teóricos abordados no presente trabalho. O capítulo \ref{chp:methodology} apresenta, em detalhes, a metodologia aplicada durante o desenvolvimento do trabalho. No capítulo \ref{chp:experiments} são descritos os experimentos realizados durante o estudo. Os resultados destes experimentos podem ser encontrados no capítulo \ref{chp:results}, enquanto o capítulo \ref{chp:discussions} apresenta algumas discussões sobre os resultados apresentados, bem como possíveis trabalhos futuros relacionados ao presente estudo. Por fim, o capítulo \ref{chp:conclusao} apresenta as conclusões do presente estudo.
