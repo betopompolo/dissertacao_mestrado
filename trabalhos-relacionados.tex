@@ -1,7 +1,7 @@
 \chapter{TRABALHOS RELACIONADOS}
 \label{chp:relatedWorks}
 
-O presente capítulo apresenta o estado da arte em relação à ferramentas de busca de código-fonte. Os trabalhos apresentados nesses capítulo estão ordenados em três seções: estudos relacionados à busca de código-fonte, ferramentas de busca de código-fonte e ferramentas de busca de código-fonte baseados em modelos \textit{transformers}. Todas as seções apresentam os estudos ordenados em ordem cronológica de publicação. Por fim, é apresentada também uma conclusão sobre os trabalhos citados neste capítulo.
+O presente capítulo apresenta o estado da arte em relação à ferramentas de busca de código-fonte. Os trabalhos apresentados nesses capítulo estão ordenados em três seções: estudos relacionados à busca de código-fonte, ferramentas de busca de código-fonte e ferramentas de busca baseadas em modelos \textit{transformers}. Todas as seções apresentam os estudos ordenados em ordem cronológica de publicação. Por fim, é apresentada também uma conclusão sobre os trabalhos citados neste capítulo.
 
 \section{Estudos relacionados à busca de código-fonte}
 \textcite{Sadowski2015HowDS} realizaram um estudo empírico entre desenvolvedores da empresa Google para analisar padrões de busca de código. O estudo foi realizado utilizando duas ferramentas: um questionário com cinco perguntas, que era apresentado ao usuário sempre que este acessava o repositório interno da empresa; e a coleta de registros (logs) gerados por uma ferramenta de busca de código, utilizada pelos usuários do estudo. Os resultados mostraram que programadores realizam, em média, cinco sessões de busca de código, com doze consultas por sessão, por dia de trabalho. Além disso, tais consultas são, geralmente, relacionadas aos seguintes pontos: uso de API; o que o código faz; porque o código está falhando; onde o código está localizado. Como trabalhos futuros, os autores apontam algumas áreas que não foram contempladas pelo estudo em questão, como a qualidade dos resultados da busca e de que forma os resultados da busca são utilizados pelo usuário. 
@@ -61,7 +61,7 @@ Com isso, os autores compararam o \textit{TranCS} com os modelos \gls{deepcs} e 
 
 \textcite{Cheng2022CSRSCS} propuseram um modelo de busca de código chamado \gls{csrs}, o qual consiste de três partes principais: um módulo de \textit{embedding} com núcleos de convolução para extrair \textit{embeddings} n-gramas de consultas e códigos; um módulo para medir as correspondências léxicas das consultas; e um módulo baseado em atenção para capturar a correlação semântica entre consulta e código. Utilizando a métrica \gls{mrr}, e a base de dados utilizada em \cite{Gu2018DeepCS}, o \gls{csrs} obteve melhora de $33,77\%$ e $18.53\%$ em relação aos modelos \gls{deepcs} e \gls{carlcscnn}. Como trabalhos futuros, os autores consideram estudar formas de melhorar a combinação dos módulos do \gls{csrs}, além de incorporar conhecimento externo (como \gls{ast} ou documentação de \gls{api}) ao treinamento do \gls{csrs}.
 
-\section{Ferramentas de busca de código-fonte baseada em modelos \textit{transformers}}
+\section{Ferramentas de busca baseadas em modelos \textit{transformers}}
 
 \textcite{Chu2019AGA} propôs um sistema para busca de código que combina aprendizagem de máquina baseada em grafos com modelos \emph{transformer}, além de modelos tradicionais de busca como \textit{ElasticSearch} (ferramenta de busca baseada no Apache \textit{Lucene}). O sistema em questão aplicou \emph{embeddings} hiperbólicos e clusterização de grafos aos dados da base \emph{CodeSearchNet} \cite{Husain2019CodeSearchNetCE}, a fim de incorporar a estrutura de grafos presente nos repositórios de código aos modelo de busca testados. Com isso, foram testados os seguintes modelos de busca: \gls{nbow}; \textit{ElasticSearch}; \textit{ElasticSearch} com clusterização de grafos. Utilizando a métrica \gls{ndcg}, comumente utilizada para avaliar mecanismos de busca, obteve-se $0,190$ com o \gls{nbow}, $0,196$ com \textit{ElasticSearch} e $0,208$ com o \textit{ElasticSearch} com clusterização de grafos. Por fim, dentre as melhorias sugeridas pelos autores está a utilização de outros modelos neurais no lugar do \textit{ElasticSearch}, combinados com o modelo de grafos proposto.
 
@@ -80,7 +80,7 @@ O gráfico da Figura \ref{fig:related-datasets} mostra as bases de dados utiliza
 \begin{figure}[H]
     \centering
     \caption{Bases de dados utilizadas}
-    \includegraphics[width=1.0\columnwidth, height=0.6\columnwidth]{./imagens/trabalhos-relacionados/databases.png}
+    \includegraphics[scale=0.7]{./imagens/trabalhos-relacionados/databases.png}
     \smallcaption{Fonte: Autor}
     \label{fig:related-datasets}
 \end{figure}
@@ -89,7 +89,7 @@ O gráfico da Figura \ref{fig:related-metrics} mostra as métricas utilizadas no
 \begin{figure}[H]
     \centering
         \caption{Métricas utilizadas}
-        \includegraphics[scale=0.5]{./imagens/trabalhos-relacionados/ir_metrics.png}
+        \includegraphics[scale=0.7]{./imagens/trabalhos-relacionados/ir_metrics.png}
         \smallcaption{Fonte: Autor}
         \label{fig:related-metrics}
 \end{figure}
@@ -98,7 +98,7 @@ A Figura \ref{fig:related-baselines} mostra os modelos de busca de código utili
 \begin{figure}[H]
     \centering
         \caption{Modelos de comparação utilizados}
-        \includegraphics[scale=0.5]{./imagens/trabalhos-relacionados/baselines.png}
+        \includegraphics[scale=0.7]{./imagens/trabalhos-relacionados/baselines.png}
         \smallcaption{Fonte: Autor}
         \label{fig:related-baselines}
 \end{figure}

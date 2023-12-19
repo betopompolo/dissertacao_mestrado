@@ -18,7 +18,7 @@ Todos os experimentos serão realizados utilizando a base de dados \textit{CodeS
 \begin{figure}[H]
     \centering
         \caption{Par código-fonte/comentário}
-        \includegraphics[scale=0.5]{code-comment-pair.png}
+        \includegraphics[scale=0.55]{code-comment-pair.png}
         \smallcaption{Fonte: Autor}
         \label{fig:metodology-code-comment-pair}
 \end{figure}
@@ -27,7 +27,7 @@ Como é possível ver na Figura \ref{fig:metodology-code-comment-pair}, o códig
 
 Além disso, a base de dados contém pares com código-fonte das linguagens de programação \textit{Python}, \textit{Javascript}, \textit{Ruby}, \textit{Go}, \textit{Java} e \textit{PHP}. Neste trabalho, foram selecionados 2000 pares código-fonte/comentário com códigos-fonte na linguagem \textit{Python}.
 
-Por fim, durante o desenvolvimento deste trabalho, a base de dados original \textit{CodeSearchNet} foi arquivada por seus criadores, não sendo possível mais acessá-la. Como alternativa, a base \textit{CodeSearchNet} foi migrada, por membros da comunidade, para um repositório no \textit{HuggingFace}\footnote{Disponível em https://huggingface.co/}.
+Por fim, durante o desenvolvimento deste trabalho, a base de dados original \textit{CodeSearchNet} foi arquivada por seus criadores, não sendo possível mais acessá-la. Como alternativa, a base \textit{CodeSearchNet} foi migrada, por membros da comunidade, para um repositório no \textit{HuggingFace}\footnote{Disponível em https://huggingface.co/datasets/code\_search\_net}.
 
 
 \section{Pré-processamento}
@@ -43,14 +43,14 @@ Durante a migração do repositório original para o \textit{HuggingFace}, os au
 
 \section{Base de pares de \textit{embeddings}}
 \label{sec:methodology:encoders}
-Após o pré-processamento, os modelos de \textit{transformers} serão responsáveis por gerar os \textit{word embeddings} tanto do código-fonte quanto do comentário correspondente. Para isso, foram escolhidos dois modelos: o \textit{all-mpnet-base-v2}, baseado em \gls{roberta}, para linguagem natural (comentário) e o \textit{flax-sentence-embeddings/st-codesearch-distilroberta-base}, baseado em \gls{distilroberta}, para código-fonte. Apesar de modelos diferentes, ambos geram \textit{word embeddings} em um espaço vetorial de dimensão 768, além de serem pré-treinados utilizando, dentre outras bases de dados, a \textit{CodeSearchNet}.
+Após o pré-processamento, os modelos de \textit{transformers} serão responsáveis por gerar os \textit{word embeddings} tanto do código-fonte quanto do comentário correspondente. Para isso, foram escolhidos dois modelos: o \textit{all-mpnet-base-v2}, baseado em \gls{roberta}, para linguagem natural (comentário) e o \textit{flax-sentence-embeddings/st-codesearch-distilroberta-base}, baseado em DistilRoBERTa, para código-fonte. Apesar de modelos diferentes, ambos geram \textit{word embeddings} em um espaço vetorial de dimensão 768, além de serem pré-treinados utilizando, dentre outras bases de dados, a \textit{CodeSearchNet}.
 
 Por fim, a Figura \ref{fig:metodology-db-embeddings} ilustra a criação da base de pares de \textit{embeddings} a partir de pares código-fonte/comentário. Como pode-se notar na imagem, para cada par código-fonte/comentário, é gerado um par de \textit{embedding} código-fonte/comentário. Essa nova base de pares de \textit{embeddings} é então salva em disco, para ser utilizada nas etapas seguintes. Durante a criação dos pares de \textit{embeddings}, não há nenhuma operação que altere a posição destes pares. Portanto, a associação entre o par original com o par de \textit{embedding} correspondente foi feita utilizando sua posição (\textit{index}) na base original. Com isso, dado que $i$ é a posição de determinado par na base de treinamento, para acessar os \textit{embeddings} do $par_i$ basta consultar a base de \textit{embeddings} na mesma posição $i$. Por fim, a geração da base de \textit{embeddings} acelerou tanto o treinamento do modelo de comparação (descrito na seção \ref{sec:methodology:embedding-comparator} deste capítulo) quanto os experimentos descritos no capítulo \ref{chp:experiments}, já que para ambas as etapas os pares de \textit{embeddings} já haviam sido gerados.
 
 \begin{figure}[H]
     \centering
         \caption{Geração da base de pares de \textit{embeddings}}
-        \includegraphics[scale=0.5]{db_embeddings.pdf}
+        \includegraphics[scale=0.35]{db_embeddings.pdf}
         \smallcaption{Fonte: Autor}
         \label{fig:metodology-db-embeddings}
 \end{figure}
@@ -75,7 +75,7 @@ Tais pares negativos foram gerados da seguinte forma: o modelo em questão foi t
 \begin{figure}[H]
     \centering
         \caption{Geração de pares código-fonte/comentário negativos}
-        \includegraphics[scale=0.6]{neg_samples_gen.png}
+        \includegraphics[scale=0.7]{neg_samples_gen.png}
         \smallcaption{Fonte: Autor}
         \label{fig:metodology-neg_samples_gen_diagram}
 \end{figure}
