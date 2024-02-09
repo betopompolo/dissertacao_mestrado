@@ -72,19 +72,7 @@ PE_{(pos, 2_(i+1))} & = & \cos{\frac{pos}{10000^\frac{2_i}{d_m}}}
 \end{eqnarray*}
 Na equação acima, $pos$ é a posição do \textit{token}, $d_m$ é a dimensão do modelo e $i$ é a dimensão atual, sendo que $0 \leq i \leq d$. Como as funções de seno e cosseno são periódicas, os valores gerados estarão entre $2\pi$ e $10000 \times 2\pi$. Com isso, o \textit{positional encoding} é capaz de descrever as posições absolutas e relativas de determinado \textit{token} no texto. Vale frisar que é possível descrever posições relativas neste modelo pois, dado um intervalo $k$ entre um \textit{token} e outro \textit{token} anterior, $PE_{pos+k}$ pode ser representado como função linear de $PE_{pos}$ \cite{Vaswani2017AttentionIA}.
 
-Por fim, a Figura \ref{fig:transformer-architecture} mostra um diagrama com uma visão geral da arquitetura \textit{transformer}:
-
-\begin{figure}[H]
-    \centering
-    \caption{Visão geral da arquitetura \textit{Transformer}}
-    \includegraphics[scale=0.4]{imagens/conceitos/transformer-architecture.pdf}
-    \smallcaption{Fonte: \cite{Vaswani2017AttentionIA}}
-    \label{fig:transformer-architecture}
-\end{figure}
-
-Vale ressaltar que o \textit{pipeline} do lado esquerdo da Figura \ref{fig:transformer-architecture}, o qual recebe os \textit{embeddings} de entrada (\textit{input embeddings)}, é chamado de \textit{encoder}. E o \textit{pipeline} do lado direto da Figura \ref{fig:transformer-architecture} é chamado de \textit{decoder}.
-
-Além dos \textit{word embeddings}, que são gerados para cada um dos \textit{tokens} de entrada, modelos \textit{transformers} utilizam outro tipo de \textit{embedding} chamado \textit{positional encoding}. Estes descrevem a posição de cada \textit{token} na frase. Como modelos \textit{transformers} processam todos os \textit{tokens} em paralelo, é necessário incluir a posição de cada \textit{token} na frase, junto com seu \textit{word embedding}. Caso não houvessem os \textit{positional embeddings} no modelo, frases com sentido diferente poderiam gerar o mesmo \textit{embedding}. Considere o exemplo da Figura \ref{fig:concepts:wordEmbedding}.
+A posição das palavras influencia diretamente seu sentido semântico. Considere o exemplo da Figura \ref{fig:concepts:wordEmbedding}.
 
 \begin{figure}[H]
     \centering
@@ -106,6 +94,17 @@ Note que as duas frases da Figura \ref{fig:concepts:wordEmbedding} possuem as me
 
 No exemplo da Figura \ref{fig:concepts:wordAndPosEmbedding}, os \textit{word embeddings} de cada \textit{token} são combinados com seus respectivos \textit{positional encodings}, gerando um novo \textit{encoding} para cada \textit{token} da frase. Com as informações semânticas e de posição de cada \textit{token}, o modelo consegue detectar diferença entre as duas frases do exemplo em questão.
 
+Por fim, a Figura \ref{fig:transformer-architecture} mostra um diagrama com uma visão geral da arquitetura \textit{transformer}.
+
+\begin{figure}[H]
+    \centering
+    \caption{Visão geral da arquitetura \textit{Transformer}}
+    \includegraphics[scale=0.4]{imagens/conceitos/transformer-architecture.pdf}
+    \smallcaption{Fonte: \cite{Vaswani2017AttentionIA}}
+    \label{fig:transformer-architecture}
+\end{figure}
+
+Vale ressaltar que o \textit{pipeline} do lado esquerdo da Figura \ref{fig:transformer-architecture}, o qual recebe os \textit{embeddings} de entrada (\textit{input embeddings)}, é chamado de \textit{encoder}. E o \textit{pipeline} do lado direto da Figura \ref{fig:transformer-architecture} é chamado de \textit{decoder}.
 
 Além disso, também é possível pré treinar os modelos \textit{transformers}. Como tais modelos demandam muitos recursos computacionais durante seu treinamento, estes são geralmente pré-treinados com grandes quantidades de dados \textit{corpus} grande em determinado domínio. Por exemplo, dado o par código-fonte/comentário, tem-se dois domínios diferentes: código-fonte e linguagem natural, respectivamente. Portanto, utilizou-se dois modelos \textit{transformers} - um pré treinado com amostras de código-fonte, e outro com trechos de textos na lingua inglesa, conforme descrito no capítulo \ref{chp:experiments}. Com isso, não foi necessário treinar tais modelos de \textit{embedding} com a base de dados específica utilizada no presente estudo. 
 
