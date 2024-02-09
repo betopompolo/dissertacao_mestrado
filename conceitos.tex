@@ -1,6 +1,6 @@
 \chapter{Conceitos}
 \label{chp:concepts}
-Nesse capítulo serão apresentados os principais conceitos que serão utilizados ao longo da metodologia apresentada.
+Nesse capítulo serão apresentados os principais conceitos que serão utilizados ao longo do presente trabalho.
 
 \section{Sistemas de Busca de Código-Fonte}
 Na literatura, encontra-se diferentes técnicas para busca de código-fonte. Antes, porém, é importante definir alguns termos comumente utilizados nessa área de busca de código-fonte. \textit{Query} é a entrada do sistema - os termos introduzidos pelo usuário para realizar uma busca. A intenção do usuário é o que este quer buscar, e que será expressa através da \textit{query}. Sistemas de busca de código-fonte, por sua vez, consistem em encontrar trechos de código-fonte relevantes à \textit{query} inserida pelo usuário. A Figura \ref{fig:concepts:code-search-structure} mostra um exemplo de busca de código-fonte.
@@ -84,13 +84,32 @@ Por fim, a Figura \ref{fig:transformer-architecture} mostra um diagrama com uma 
 
 Vale ressaltar que o \textit{pipeline} do lado esquerdo da Figura \ref{fig:transformer-architecture}, o qual recebe os \textit{embeddings} de entrada (\textit{input embeddings)}, é chamado de \textit{encoder}. E o \textit{pipeline} do lado direto da Figura \ref{fig:transformer-architecture} é chamado de \textit{decoder}.
 
-Posteriormente, foi proposto o modelo \gls{bert} \cite{Devlin2019BERTPO}. Este consegue aprender, dado um \textit{token} do texto, o contexto tanto com os \textit{tokens} anteriores quanto com seus sucessores. Em outras palavras, o \gls{bert} aprende o contexto de forma bi-direcional. Como exemplo, dada a sentença "O menino foi passear na praia", modelos anteriores ao \gls{bert} processavam as palavras em sequência - primeiro "O", depois "menino", depois "foi" e assim por diante - até por conta dessa limitação que modelos como \gls{lstm} eram recursivos, a fim de guardar as informações de palavras previamente processadas; no exemplo em questão, para saber o contexto ao processar a palavra "foi", era necessário que estes modelos recorrentes salvassem as informações obtidas das palavras anteriores "O" e "menino".
+Além dos \textit{word embeddings}, que são gerados para cada um dos \textit{tokens} de entrada, modelos \textit{transformers} utilizam outro tipo de \textit{embedding} chamado \textit{positional encoding}. Estes descrevem a posição de cada \textit{token} na frase. Como modelos \textit{transformers} processam todos os \textit{tokens} em paralelo, é necessário incluir a posição de cada \textit{token} na frase, junto com seu \textit{word embedding}. Caso não houvessem os \textit{positional embeddings} no modelo, frases com sentido diferente poderiam gerar o mesmo \textit{embedding}. Considere o exemplo da Figura \ref{fig:concepts:wordEmbedding}.
 
-Ainda, como o \gls{bert} utiliza apenas modelos de atenção, este consegue processar todas as palavras da frase em paralelo, aumentando drasticamente a performance de treinamento em relação aos modelos recorrentes, por exemplo. Porém, só os modelos de atenção não seriam suficientes para possibilitar o processamento em paralelo das palavras durante o treinamento do \gls{bert}, já que as posições das palavras na frase seriam perdidas. Por isso, além dos modelos de atenção, os modelos \textit{transformers} e, mais especificamente, o \gls{bert}, utilizam os \textit{positional embeddings} citados acima. Estes vetores descrevem tanto as posições relativas quanto absolutas de cada palavra na frase. Para fins didáticos, e utilizando a mesma frase "O menino foi passear na praia", considere que cada palavra é numerada a partir de zero - então, "O" estaria na posição 0, "menino" na posição 1 e assim por diante. Nesse caso, a posição absoluta da palavra "passear" seria 3 e a posição relativa à palavra "O" seria 2.
+\begin{figure}[H]
+    \centering
+    \caption{Exemplo de frase sem \textit{positional encoding}}
+    \includegraphics[scale=0.4]{imagens/conceitos/word_embedding.png}
+    \smallcaption{Fonte: Autor}
+    \label{fig:concepts:wordEmbedding}
+\end{figure}
+
+Note que as duas frases da Figura \ref{fig:concepts:wordEmbedding} possuem as mesmas palavras, mas com sentido diferente. Porém, como os \textit{word embeddings} não descrevem as posições dos \textit{tokens}, o \textit{embedding} gerado para a frase será o mesmo. Em contrapartida, a Figura \ref{fig:concepts:wordAndPosEmbedding} mostra um exemplo de como os \textit{positional embeddings} influenciam no \textit{embedding} final das frases.
+
+\begin{figure}[H]
+    \centering
+    \caption{Exemplo de frase com \textit{positional encoding}}
+    \includegraphics[scale=0.4]{imagens/conceitos/word_n_positional_embeddings.png}
+    \smallcaption{Fonte: Autor}
+    \label{fig:concepts:wordAndPosEmbedding}
+\end{figure}
+
+No exemplo da Figura \ref{fig:concepts:wordAndPosEmbedding}, os \textit{word embeddings} de cada \textit{token} são combinados com seus respectivos \textit{positional encodings}, gerando um novo \textit{encoding} para cada \textit{token} da frase. Com as informações semânticas e de posição de cada \textit{token}, o modelo consegue detectar diferença entre as duas frases do exemplo em questão.
+
 
 Além disso, também é possível pré treinar os modelos \textit{transformers}. Como tais modelos demandam muitos recursos computacionais durante seu treinamento, estes são geralmente pré-treinados com grandes quantidades de dados \textit{corpus} grande em determinado domínio. Por exemplo, dado o par código-fonte/comentário, tem-se dois domínios diferentes: código-fonte e linguagem natural, respectivamente. Portanto, utilizou-se dois modelos \textit{transformers} - um pré treinado com amostras de código-fonte, e outro com trechos de textos na lingua inglesa, conforme descrito no capítulo \ref{chp:experiments}. Com isso, não foi necessário treinar tais modelos de \textit{embedding} com a base de dados específica utilizada no presente estudo. 
 
-Entretanto, é possível especializar ainda mais os modelos \textit{transformers} utilizando um processo chamado \textit{fine-tuning} onde, dado um domínio específico (como busca de código-fonte a partir de linguagem natural), tais modelos são treinados utilizando amostras específicas para o problema em questão, a fim de especializar os modelos \textit{transformers} no problema em questão e, com isso, aumentar sua performance. Como tal processo demanda muitos recursos, além de fugir do objetivo principal do presente estudo, o \textit{fine-tuning} não foi realizado para nenhum dos modelos \textit{transformers} citados no capítulo \ref{chp:experiments} \cite{Tay2021ScaleEI}.
+Entretanto, é possível especializar ainda mais os modelos \textit{transformers} utilizando um processo chamado \textit{fine-tuning} onde, dado um domínio específico (como busca de código-fonte a partir de linguagem natural), tais modelos são treinados utilizando amostras específicas para o problema em questão, a fim de especializar os modelos \textit{transformers} no problema em questão e, com isso, aumentar sua performance. Como tal processo demanda muitos recursos, além de fugir do objetivo principal do presente estudo, o \textit{fine-tuning} não foi realizado para nenhum dos modelos \textit{transformers} citados no capítulo \ref{chp:experiments}.
 
 \section{Métricas de Avaliação de Recuperação de Informação}
 Dado uma lista de resultados para determinada busca, ordenados de maneira decrescente de relevância, o \gls{mrr} é um valor, entre 0 e 1, que representa em qual posição o resultado mais relevante estará na lista de resultados. Caso o \gls{mrr} seja 1, o resultado mais relevante estará (na maioria dos casos) em primeiro lugar na lista de resultados; se for 0.5, este estará na segunda posição e assim por diante \cite{Craswell2009}. Essa métrica é composta pela a média entre os resultados de várias buscas em determinada base de dados. Os valores individuais de cada busca são chamados de \gls{rr} e são calculados da seguinte forma:
