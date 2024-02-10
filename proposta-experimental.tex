@@ -32,7 +32,7 @@ A busca de código-fonte no presente trabalho é feita da seguinte forma: dado u
 \begin{figure}[H]
     \centering
         \caption{Diagrama do experimento 2}
-        \includegraphics[scale=0.5]{imagens/proposta-experimental/experiment-2.pdf}
+        \includegraphics[scale=0.5]{imagens/proposta-experimental/experiment-2.png}
         \smallcaption{Fonte: Autor.}
         \label{fig:experiment-2-diagram}
 \end{figure}
@@ -41,26 +41,26 @@ Nesse experimento, a \textit{query} $Q$ será o comentário do par em questão -
 
 \section{Experimento 3}
 \label{sec:experiments:experiment-3}
-O objetivo desse experimento é determinar a acurácia do modelo de comparação, utilizando as queries disponíveis na base de dados \textit{CodeSearchNet}. Ao todo, a base em questão contém 4009 amostras, cada uma contendo os seguintes dados:
+O objetivo desse experimento é determinar a acurácia do modelo de comparação, utilizando as \textit{queries} disponíveis na base de dados \textit{CodeSearchNet}. Ao todo, a base em questão contém 4009 amostras, cada uma contendo os seguintes dados:
 
 \begin{itemize}
-    \item \textit{Query}: Termo, em linguagem natural, utilizado para busca de código-fonte. Para facilitar a compreensão, esse termo será chamado daqui em diante de $Q_{cs}$.
+    \item \textit{Query}: Termo, em linguagem natural, utilizado para busca de código-fonte
     \item \textit{Language}: Linguagem de programação do código-fonte associado
     \item \textit{GitHubUrl}: Link do Github para o código-fonte associado
     \item \textit{Relevance}: Valor inteiro, entre 0 e 3 (inclusivo), que representa o quão a \textit{Query} é relevante ao código-fonte em questão. 0 signfica que o código-fonte é pouco relevante para a query, e 3 signfica que o código é altamente relevante para a \textit{Query}.
     \item \textit{Notes}: Anotações, em linguagem natural, feitas pelos criadores dessa base de dados, caso julgassem relevante para a amostra em questão.
 \end{itemize}
 
-Para o experimento em questão, foram utilizadas apenas as amostras da linguagem \textit{Python}. Além disso, amostras duplicadas e aquelas cujo o campo \textit{GitHubUrl} não foi encontrado na base de treinamento também foram filtradas. Por fim, 842 amostras de \textit{queries} foram utilizadas neste experimento.
+Para o experimento em questão, foram utilizadas apenas as amostras da linguagem \textit{Python}. Além disso, amostras duplicadas e aquelas cujo o campo \textit{GitHubUrl} não foi encontrado na base \textit{CodeSearchNet} também foram filtradas. Por fim, 842 amostras de \textit{queries} foram utilizadas neste experimento.
 
-Portanto, para cada uma das amostras de query foi gerado um \textit{embedding} a partir de $Q_{cs}$, chamado $Emb_{qcs}$, utilizando o modelo de \textit{embedding} para linguagem natural \textit{all-mpnet-base-v2}, conforme descrito no capítulo \ref{chp:methodology}. Esse embedding foi então comparado com todos os embeddings $Emb_{cod}$ presentes na base de embeddings, utilizando o modelo de comparação.
+Com isso, para cada uma das 842 amostras disponíveis, foi gerado o \textit{embedding} para o campo \textit{Query} utilizando o \textit{transformer} de linguagem natural. Na parte do código, utilizou-se o campo \textit{GitHubUrl} para buscar o código correspondente na base \textit{CodeSearchNet}, e foi gerado o \textit{embedding} para esse código utilizando o \textit{transformer} de código-fonte. Ambos os modelos \textit{transformers} citados (de linguagem natural e de código-fonte) são os mesmos utilizados nos experimentos anteriores. O modelo de comparação foi então utilizado para determinar a similaridade entre esses dois \textit{embeddings}, conforme mostrado na Figura \ref{fig:experiment-3-diagram}.
 
-Como o modelo de comparação proposto neste estudo gera resultados no intervalo $[0, 1]$, e o campo \textit{Relevance} possui valores inteiros entre 0 e 3, foi necessário uma normalização para determinar se o modelo categorizou o par $(Emb_{qcs}, Emb_{cod})$ de acordo com a relevância esperada. Para tanto, dividiu-se os dois intervalos ao meio. Com isso, para valores de \textit{Relevance} 0 ou 1, espera-se que a similaridade seja igual ou menor à 0.5, bem como para \textit{Relevance} 2 ou 3, espera-se similaridades maiores que 0.5. Como exemplo, caso a similaridade dada pelo modelo de comparacão for de $0.4$, e a relevância esperada para esta amostra seja 0, considera-se um acerto do modelo de comparação. Ainda, se a similaridade for $0.6$ e a relevância 1, considera-se um erro do modelo. Por fim, a Figura \ref{fig:experiment-3-diagram} ilustra o experimento em questão.
+Como o modelo de comparação proposto neste estudo gera resultados no intervalo $[0, 1]$, e o campo \textit{Relevance} possui valores inteiros entre 0 e 3, foi necessário uma normalização para determinar se o modelo categorizou o par $(Emb_{qcs}, Emb_{cod})$ de acordo com a relevância esperada. Para tanto, dividiu-se os dois intervalos ao meio, ou seja, para valores de \textit{Relevance} 0 ou 1, espera-se que a similaridade seja igual ou menor à 0.5, bem como para \textit{Relevance} 2 ou 3, espera-se similaridades maiores que 0.5. Como exemplo, caso a similaridade dada pelo modelo de comparacão for de $0.4$, e a relevância esperada para esta amostra seja 0, considera-se um acerto do modelo de comparação. Ainda, se a similaridade for $0.6$ e a relevância 1, considera-se um erro do modelo.
 
 \begin{figure}[H]
     \centering
         \caption{Diagrama do experimento 3}
-        \includegraphics[scale=0.4]{imagens/proposta-experimental/experiment-3.pdf}
+        \includegraphics[scale=0.4]{imagens/proposta-experimental/experiment-3.png}
         \smallcaption{Fonte: Autor}
         \label{fig:experiment-3-diagram}
 \end{figure}
