@@ -44,7 +44,7 @@ Por fim, a Figura \ref{fig:experiment-1-bad} apresenta um par onde o modelo não
 \begin{figure}[H]
   \centering
     \caption{Exemplo de resultado negativo}
-    \includegraphics[scale=0.65]{imagens/resultados/experiment-1/sample_29.png}
+    \includegraphics[scale=0.6]{imagens/resultados/experiment-1/sample_29.png}
     \smallcaption{Fonte: Autor}
     \label{fig:experiment-1-bad}
 \end{figure}
@@ -89,4 +89,3 @@ Por fim, o experimento 3 utiliza as \textit{queries} $Q_{cs}$ da base de dados \
 Para determinar se o modelo obteve o valor correto em relação ao esperado para determinada \textit{query}, foi realizado uma normalização do valor de similaridade em relação ao valor esperado. Com isso, espera-se que valores de similaridade iguais ou menores que $0.5$ possuam relevância de 0 ou 1, enquanto valores de similaridade maiores que $0.5$ tenham relevância igual a 2 ou 3, conforme descrito na seção \ref{sec:experiments:experiment-3}.
 
 Portanto, utilizando os parâmetros contidos na base de dados \textit{CodeSearchNet} \cite{Husain2019CodeSearchNetCE}, o modelo de comparação obteve $54.99\%$ de acerto, com 463 predições corretas de 842 \textit{queries}. Além disso, o tempo de execução do experimento em questão foi de $13.6$ segundos.
-
