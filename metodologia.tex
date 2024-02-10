@@ -7,7 +7,7 @@ O objetivo do presente estudo é utilizar uma rede \gls{mlp} para determinar a s
 \begin{figure}[H]
     \centering
         \caption{Visão geral do sistema}
-        \includegraphics[scale=0.3]{system-overview.pdf}
+        \includegraphics[scale=0.3]{system-overview.png}
         \smallcaption{Fonte: Autor}
         \label{fig:metodology-system_overview}
 \end{figure}
@@ -58,11 +58,9 @@ Por fim, a Figura \ref{fig:metodology-db-embeddings} ilustra a criação da base
 \section{Modelo de comparação de \textit{embeddings}}
 \label{sec:methodology:embedding-comparator}
 
-O modelo de comparação consiste em uma rede neural \gls{mlp}, que tem como entrada dois \textit{embeddings}: um \textit{embedding} de código-fonte e outro do comentário, e como saída um valor racional dentro do intervalo [0, 1]. Este valor de saída determinará a similaridade entre os \textit{embeddings} de código-fonte e comentário.
+O modelo de comparação consiste em uma rede neural \gls{mlp}, que tem como entrada dois \textit{embeddings}: um \textit{embedding} de código-fonte e outro do comentário, e como saída um valor racional dentro do intervalo [0, 1]. Este valor de saída determinará a similaridade entre os \textit{embeddings} de código-fonte e comentário. Ainda, este possui 4 camadas densas intermediárias com 200, 150, 100 e 50 neurônios, respectivamente, enquanto a camada de saída possui apenas um neurônio. Duas funções de ativação foram utilizadas neste modelo: uma para as camadas intermediárias e outra para a camada de saída. As camadas intermediárias utilizam a função de ativação \gls{relu}, enquanto a camada de saída utiliza a função de ativação sigmoide.
 
 Inicialmente, o modelo realiza a concatenação dos dois \textit{embeddings} de entrada. Essa concatenação é feita juntando os dois vetores em um só, de forma que dado um \textit{embedding} de código-fonte de tamanho $m$, e um \textit{embedding} de comentário de tamanho $n$, o tamanho do vetor resultante após a concatenação será $m + n$. No presente estudo, os modelos transformers utilizados geram \textit{embeddings} de tamanho 768 - portanto, o tamanho do vetor concatenado foi de 1536.
-
-Além disso, tal modelo de comparação possui com 4 camadas densas intermediárias com 200, 150, 100 e 50 neurônios, respectivamente, enquanto a camada de saída possui apenas um neurônio. Duas funções de ativação foram utilizadas neste modelo: uma para as camadas intermediárias e outra para a camada de saída. As camadas intermediárias utilizam a função de ativação \gls{relu}, enquanto a camada de saída utiliza a função de ativação sigmoide.
 
 \section{Etapa de treinamento}
 \label{sec:methodology:embedding-comparator-training}
