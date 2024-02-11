@@ -3,7 +3,10 @@
 
 Este capítulo apresenta os resultados dos três experimentos descritos no capítulo \ref{chp:experiments}. Os resultados serão divididos em três seções, uma para cada experimento.
 
-\section{Experimento 1} 
+\section{Fase de treinamento}
+Durante o treinamento, descrito na seção \ref{sec:methodology:embedding-comparator-training}, foram gerados 5 pares negativos por par da base de treino. Com isso, o modelo de comparação foi treinado com 12000 pares código-fonte/comentário (sendo 2000 pares positivos e 10000 negativos), com tempo de treinamento de aproximadamente 48 minutos.
+
+\section{Experimento 1}
 \label{sec:results:experiment-1}
 
 Conforme descrito no capítulo \ref{chp:experiments}, este experimento utiliza 100 pares código-fonte/comentário da base de treinamento para determinar a capacidade semântica do modelo de comparação, através da remoção de palavras aleatórias do comentário.
@@ -55,32 +58,21 @@ Por fim, 100 pares código-fonte/comentário foram utilizados durante este exper
 
 \section{Experimento 2} 
 \label{sec:results:experiment-2}
-O objetivo desse experimento é determinar a performance do modelo de comparação na tarefa de busca de código-fonte a partir de linguagem natural. Para tanto, utilizou-se as mesmas 100 pares código-fonte/comentário do experimento 1, além das métricas de recuperação de informação \gls{mrr} e \textit{SuccessRate@k} com $k=1$, $k=5$ e $k=10$. Foi aplicado o mesmo processo de geração de \textit{queries} $C^-$ utilizado no experimento 1. Portanto, para cada par, realizou-se uma busca de código-fonte para cada uma das \textit{queries} $C^-$ geradas. 
+O objetivo desse experimento é determinar a performance do modelo de comparação na tarefa de busca de código-fonte a partir de linguagem natural. Para tanto, utilizou-se as todos os pares código-fonte/comentário da base de treinamento, além das métricas de recuperação de informação \gls{mrr} e \textit{SuccessRate@k} com $k=1$, $k=5$ e $k=10$.
 
-Aqui, da lista de resultados resultante de cada busca, considera-se que o código-fonte do par em questão é o mais relevante. Portanto, ao se fazer uma busca utilizando a \textit{query} $C^-$ gerada a partir do comentário do $par_i$, o código-fonte mais relevante da lista de resultados será o código-fonte do mesmo $par_i$. Inclusive, a posição desse código-fonte na lista de resultados será utilizada para calcular as métricas \gls{mrr} e \textit{SuccessRate@k}.
+Aqui, da lista de resultados resultante de cada busca, considera-se que o código-fonte do par em questão é o mais relevante. Portanto, ao se fazer uma busca utilizando o comentário do par $par_i$ como \textit{query}, o código-fonte mais relevante da lista de resultados será o código-fonte do mesmo $par_i$. Inclusive, a posição desse código-fonte na lista de resultados será utilizada para calcular as métricas \gls{mrr} e \textit{SuccessRate@k}.
 
-Portanto, a Figura \ref{fig:experiment-2-mrr} mostra os valores de \gls{mrr} para cada um dos 100 pares utilizados. Neste experimento, o menor valor de \gls{mrr} foi de $0.008$ enquanto o maior foi de $0.783$. Ainda, a média de todos os valores obtidos de \gls{mrr} foi de aproximadamente $0.130$.
+A Figura \ref{fig:results:experiment-2} mostra os valores \gls{mrr} e \textit{SuccessRate@k} obtidos durante este experimento, bem como valores obtidos por modelos de busca de código-fonte presentes na literatura.
 
 \begin{figure}[H]
   \centering
       \caption{\textit{MRR}}
       \includegraphics[scale=0.6]{imagens/resultados/experiment-2/mrr.png}
       \smallcaption{Fonte: Autor}
-      \label{fig:experiment-2-mrr}
+      \label{fig:results:experiment-2}
 \end{figure}
 
-
-Em relação ao \textit{SuccessRate@k}, a Figura \ref{fig:experiment-2-success-k} mostra os resultados obtidos para $k=1$, $k=5$ e $k=10$. Com esses valores de $k$, os maiores resultados obtidos foram de $0.933$, $0.960$ e $1.000$, respectivamente, enquanto o menor resultado foi zero para todos os valores de $k$. A média dos resultados foi de, aproximadamente, $0.044$, $0.176$, $0.297$ para os valores de $k=1$, $k=5$ e $k=10$, respectivamente.
-
-\begin{figure}[H]
-  \centering
-      \caption{\textit{SuccessRate@k}}
-      \includegraphics[scale=0.6]{imagens/resultados/experiment-2/success-rates.png}
-      \smallcaption{Fonte: Autor}
-      \label{fig:experiment-2-success-k}
-\end{figure}
-
-Por fim, o tempo total de execução desse experimento foi de 27 minutos e 55 segundos.
+Por fim, 2000 buscas foram feitas durante este experimento, com tempo total de execução de 57 minutos.
 
 \section{Experimento 3} 
 \label{sec:results:experiment-3}

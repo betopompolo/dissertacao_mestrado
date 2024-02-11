@@ -23,9 +23,9 @@ Para este experimento, espera-se que, ao remover uma palavra semanticamente impo
 
 \section{Experimento 2}
 \label{sec:experiments:experiment-2}
-O objetivo desse experimento é determinar a relevância de determinada palavra no contexto de busca de código-fonte a partir de linguagem natural.
+O objetivo desse experimento é avaliar a performance do modelo de comparação no problema de busca de código-fonte a partir de linguagem natural.
 
-Neste experimento, foram utilizados os mesmos 100 pares da base de treinamento utilizados no experimento \ref{sec:experiments:experiment-1}, bem como o mesmo algoritmo de remoção de palavras de um comentário. Entretanto, ao invés de comparar o \textit{embedding} da \textit{query} $C^-$ com o \textit{embedding} de código do mesmo par, como no experimento \ref{sec:experiments:experiment-1}, este é aplicado ao contexto de busca de código-fonte a partir de linguagem natural.
+Neste experimento, utilizou-se todos os pares da base de treinamento. Para cada par, foi feito uma busca utilizando seu comentário como \textit{query}. Portanto, a posição do resultado mais importante - o $rank_i$ - será a posição que este par aparecerá no ranking de similaridade. Como a base de treino possui 2000 pares, serão realizadas 2000 buscas e as métricas \gls{mrr} e \textit{SuccessRate@k} com com $k=1$, $k=5$ e $k=10$ para avaliação da performance do modelo de comparação.
 
 A busca de código-fonte no presente trabalho é feita da seguinte forma: dado uma \textit{query} $Q$, é gerado um \textit{embedding} $Emb_q$ a partir da \textit{query} $Q$. Depois, para cada \textit{embedding} de código-fonte $Emb_{cod}$ presente na base de \textit{embeddings}, utiliza-se o modelo de comparação para determinar a similaridade entre $Emb_q$ e $Emb_{cod}$, gerando uma ranking de resultados, ordenado pela similaridade de forma decrescente. A Figura \ref{fig:metodology-system_overview} ilustra o processo de busca descrito, bem como a Figura \ref{fig:experiment-2-diagram} apresenta o diagrama do experimento em questão.
 
@@ -36,8 +36,6 @@ A busca de código-fonte no presente trabalho é feita da seguinte forma: dado u
         \smallcaption{Fonte: Autor.}
         \label{fig:experiment-2-diagram}
 \end{figure}
-
-Nesse experimento, a \textit{query} $Q$ será o comentário do par em questão - não há portanto remoção de palavras como no experimento 1. Ainda, para avaliar a performance desse experimento, serão utilizadas as métricas \gls{mrr} e \textit{SuccessRate@k} com $k=1$, $k=5$ e $k=10$.
 
 \section{Experimento 3}
 \label{sec:experiments:experiment-3}
